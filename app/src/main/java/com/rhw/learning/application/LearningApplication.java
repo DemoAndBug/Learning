@@ -1,4 +1,4 @@
-package com.rhw.learning;
+package com.rhw.learning.application;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,12 +6,13 @@ import android.content.Context;
 /**
  * Author:renhongwei
  * Date:2017/11/23 on 14:51
+ * 1、整个程序的入口 2、初始化工作内容  3、为整个应用的其他模块提供上下文
  */
-public class MyApplication extends Application {
+public class LearningApplication extends Application {
 
-    protected static MyApplication instance;
+    protected static LearningApplication instance;
 
-    public static MyApplication getInstance() {
+    public static LearningApplication getInstance() {
         return instance;
     }
 
