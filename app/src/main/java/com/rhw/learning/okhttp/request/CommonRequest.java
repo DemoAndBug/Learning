@@ -10,7 +10,7 @@ import okhttp3.Request;
  * Date:2017/11/24 on 12:12
  * function:接收请求参数，为我们生成request对象
  */
-public class CommentRequest {
+public class CommontRequest {
 
 
     /**
