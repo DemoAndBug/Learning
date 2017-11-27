@@ -11,6 +11,23 @@ import java.util.ArrayList;
 public class RecommandBodyValue extends BaseModel {
     public int type;
     public String logo;
+
+    @Override
+    public String toString() {
+        return "RecommandBodyValue{" +
+                "type=" + type +
+                ", logo='" + logo + '\'' +
+                ", title='" + title + '\'' +
+                ", info='" + info + '\'' +
+                ", price='" + price + '\'' +
+                ", text='" + text + '\'' +
+                ", site='" + site + '\'' +
+                ", from='" + from + '\'' +
+                ", zan='" + zan + '\'' +
+                ", url=" + url +
+                '}';
+    }
+
     public String title;
     public String info;
     public String price;

@@ -1,7 +1,7 @@
 package com.rhw.learning.utils;
 
 import com.rhw.learning.constant.HttpConstants;
-import com.rhw.learning.module.recommand.RecommandModel;
+import com.rhw.learning.module.recommand.BaseRecommandModel;
 import com.rhw.learning.okhttp.CommentOKHttpClient;
 import com.rhw.learning.okhttp.listener.DisposeDataHandle;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
@@ -22,6 +22,6 @@ public class RequestCenter {
     }
 
     public static void requestRecommandData(DisposeDataListener listener) {
-        RequestCenter.postRequest(HttpConstants.HOME_RECOMMAND, null, listener, RecommandModel.class);
+        RequestCenter.postRequest(HttpConstants.HOME_RECOMMAND, null, listener, BaseRecommandModel.class);
     }
 }

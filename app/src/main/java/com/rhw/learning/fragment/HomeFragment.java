@@ -79,9 +79,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onSuccess(Object responseObj) {
                 Log.i(TAG,"==" +responseObj.toString());
-                //mRecommandData = (BaseRecommandModel) responseObj;
+                mRecommandData = (BaseRecommandModel) responseObj;
                 //更新UI
-                //showSuccessView();
+                showSuccessView();
             }
 
             @Override

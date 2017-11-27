@@ -4,15 +4,19 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.rhw.learning.okhttp.exception.OkHttpException;
 import com.rhw.learning.okhttp.listener.DisposeDataHandle;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
+import com.rhw.learning.utils.ResponseEntityToModule;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.Response;
 
 /**
@@ -21,16 +25,23 @@ import okhttp3.Response;
  * function:专门处理Json的回调响应
  */
 public class CommonJsonCallback implements Callback {
-    private static final String TAG = "CommonJsonCallback";
 
-    //与服务器返回的字段的一个对应关系
+
+    private static final String TAG = "CommonJsonCallback";
+    /**
+     * the logic layer exception, may alter in different app
+     */
     protected final String RESULT_CODE = "ecode"; // 有返回则对于http请求来说是成功的，但还有可能是业务逻辑上的错误
     protected final int RESULT_CODE_VALUE = 0;
     protected final String ERROR_MSG = "emsg";
     protected final String EMPTY_MSG = "";
-    protected final String COOKIE_STORE = "Set-Cookie";
+    protected final String COOKIE_STORE = "Set-Cookie"; // decide the server it
+    // can has the value of
+    // set-cookie2
 
-    //自定义异常类型
+    /**
+     * the java layer exception, do not same to the logic error
+     */
     protected final int NETWORK_ERROR = -1; // the network relative error
     protected final int JSON_ERROR = -2; // the JSON relative error
     protected final int OTHER_ERROR = -3; // the unknow error
@@ -38,7 +49,7 @@ public class CommonJsonCallback implements Callback {
     /**
      * 将其它线程的数据转发到UI线程
      */
-    private Handler mDeliveryHandler; //将消息传输到主线程进行处理
+    private Handler mDeliveryHandler;
     private DisposeDataListener mListener;
     private Class<?> mClass;
 
@@ -49,65 +60,83 @@ public class CommonJsonCallback implements Callback {
     }
 
     @Override
-    public void onFailure(Call call, final IOException e) {
-
-        Log.i(TAG, "onFailure  111");
+    public void onFailure(final Call call, final IOException ioexception) {
         /**
-         * 此时还在非UI线程，因此要转发到主线程进行处理
+         * 此时还在非UI线程，因此要转发
          */
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
-                mListener.onFailure(new OkHttpException(NETWORK_ERROR, e));
+                mListener.onFailure(new OkHttpException(NETWORK_ERROR, ioexception));
             }
         });
     }
 
-    //响应处理函数
     @Override
-    public void onResponse( Call call, final Response response) throws IOException {
-        Log.i(TAG, "onResponse  333" + response.toString()+ response.body().string());
+    public void onResponse(final Call call, final Response response) throws IOException {
+
+
         final String result = response.body().string();
+        Log.i(TAG,"result=" + result);
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
-                handlerResponse(result);
+                handleResponse(result);
+
             }
         });
-
     }
 
-    /**
-     * 处理服务器中返回的数据
-     */
-    private void handlerResponse(Object responseObj) {
+    private ArrayList<String> handleCookie(Headers headers) {
+        ArrayList<String> tempList = new ArrayList<String>();
+        for (int i = 0; i < headers.size(); i++) {
+            if (headers.name(i).equalsIgnoreCase(COOKIE_STORE)) {
+                tempList.add(headers.value(i));
+            }
+        }
+        return tempList;
+    }
 
-        if (responseObj == null && responseObj.toString().trim().equals("")) {
-            Log.i(TAG, "onResponse  333");
+    private void handleResponse(Object responseObj) {
+        Log.i(TAG,responseObj.toString());
+        if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;
         }
+
         try {
             /**
              * 协议确定后看这里如何修改
              */
-            if (mClass == null) {
-                mListener.onSuccess(responseObj);
-            } else {
-                Gson gson = new Gson();
-                //Gson gson2 = new GsonBuilder().setExclusionStrategies(new SpecificClassExclusionStrategy(null, mClass.getClass())).create();
-                Object obj = gson.fromJson(responseObj.toString(), mClass.getClass());
-                if (obj != null) {
-                    mListener.onSuccess(obj);
+            JSONObject result = new JSONObject(responseObj.toString());
+            if (result.has(RESULT_CODE)) {
+                if (result.optInt(RESULT_CODE) == RESULT_CODE_VALUE) {
+                    if (mClass == null) {
+                        mListener.onSuccess(result);
+                    } else {
+                        Object obj = ResponseEntityToModule.parseJsonObjectToModule(result, mClass);
+                        if (obj != null) {
+                            mListener.onSuccess(obj);
+                        } else {
+                            mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
+                        }
+                    }
                 } else {
-                    mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
+                    if (result.has(ERROR_MSG)) {
+                        mListener.onFailure(
+                                new OkHttpException(result.optInt(RESULT_CODE), result.optString(ERROR_MSG)));
+                    } else {
+                        mListener.onFailure(new OkHttpException(result.optInt(RESULT_CODE), EMPTY_MSG));
+                    }
+                }
+            } else {
+                if (result.has(ERROR_MSG)) {
+                    mListener.onFailure(new OkHttpException(OTHER_ERROR, result.optString(ERROR_MSG)));
                 }
             }
         } catch (Exception e) {
-            Log.i(TAG, "onResponse  444");
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }
-
     }
 }

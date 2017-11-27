@@ -352,4 +352,13 @@ public class HomeData {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "HomeData{" +
+                "ecode='" + ecode + '\'' +
+                ", emsg='" + emsg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

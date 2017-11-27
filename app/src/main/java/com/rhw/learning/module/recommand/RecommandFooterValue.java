@@ -14,4 +14,16 @@ public class RecommandFooterValue extends BaseModel {
     public String imageOne;
     public String imageTwo;
     public String destationUrl;
+
+    @Override
+    public String toString() {
+        return "RecommandFooterValue{" +
+                "title='" + title + '\'' +
+                ", info='" + info + '\'' +
+                ", from='" + from + '\'' +
+                ", imageOne='" + imageOne + '\'' +
+                ", imageTwo='" + imageTwo + '\'' +
+                ", destationUrl='" + destationUrl + '\'' +
+                '}';
+    }
 }

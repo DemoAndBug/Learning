@@ -14,4 +14,11 @@ public class RecommandModel extends BaseModel {
     public ArrayList<RecommandBodyValue> list;
     public RecommandHeadValue head;
 
+    @Override
+    public String toString() {
+        return "RecommandModel{" +
+                "list=" + list +
+                ", head=" + head +
+                '}';
+    }
 }
