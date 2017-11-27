@@ -9,7 +9,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 14:10
  * function：递归ORM映射(有反射，不能被混淆)
  */

@@ -6,6 +6,7 @@ package com.rhw.learning.okhttp.exception;
  */
 public class OkHttpException extends Exception {
     private static final long serialVersionUID = 1L;
+
     /**
      * the server return code
      */
@@ -26,5 +27,13 @@ public class OkHttpException extends Exception {
 
     public Object getEmsg() {
         return emsg;
+    }
+
+    @Override
+    public String toString() {
+        return "OkHttpException{" +
+                "ecode=" + ecode +
+                ", emsg=" + emsg +
+                '}';
     }
 }

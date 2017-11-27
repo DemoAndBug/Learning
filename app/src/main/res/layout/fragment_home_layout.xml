@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:background="@drawable/bar_code_scan_icon"
+            android:background="@mipmap/bar_code_scan_icon"
         />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/category"
+            android:background="@mipmap/category"
         />
         <TextView
             android:id="@+id/search_view"

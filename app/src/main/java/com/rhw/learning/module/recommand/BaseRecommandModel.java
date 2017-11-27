@@ -1,9 +1,10 @@
-package com.youdu.module.recommand;
+package com.rhw.learning.module.recommand;
 
-import com.youdu.module.BaseModel;
 
+import com.rhw.learning.module.BaseModel;
 /**
- * Created by renzhiqiang on 16/8/28.
+ * Author:renhongwei
+ * Date:2017/11/26
  */
 public class BaseRecommandModel extends BaseModel {
 

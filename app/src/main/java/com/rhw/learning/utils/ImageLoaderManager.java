@@ -1,4 +1,4 @@
-package com.rhw.learning.imageloader;
+package com.rhw.learning.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

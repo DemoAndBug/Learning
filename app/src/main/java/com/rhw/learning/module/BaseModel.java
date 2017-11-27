@@ -1,11 +1,10 @@
-package com.youdu.module;
+package com.rhw.learning.module;
 
 import java.io.Serializable;
 
 /**
- * @description 实体基类
- * @author fangyan
- * @date 2015年8月1日
+ * Author:renhongwei
+ * Date:2017/11/26
  */
 public class BaseModel implements Serializable {
 
