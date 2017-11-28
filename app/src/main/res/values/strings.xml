@@ -49,7 +49,7 @@
         device.
     </string>
     <string name="msg_bulk_mode_scanned">Bulk mode: barcode scanned and saved</string>
-    <string name="scan_text">放入框中即可进行二维码扫描</string>
+    <string name="scan_text">将二维码扫放入框内，即可自动扫描</string>
     <string name="contents_contact">Contact info</string>
     <string name="contents_email">Email address</string>
     <string name="contents_location">Geographic coordinates</string>

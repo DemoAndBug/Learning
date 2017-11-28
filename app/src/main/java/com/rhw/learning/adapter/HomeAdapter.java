@@ -1,7 +1,6 @@
 package com.rhw.learning.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import com.rhw.learning.R;
 import com.rhw.learning.module.recommand.RecommandBodyValue;
 import com.rhw.learning.utils.ImageLoaderManager;
+import com.rhw.learning.utils.LogUtil;
 
 import java.util.ArrayList;
 
@@ -118,7 +118,7 @@ public class HomeAdapter extends BaseAdapter {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         //填充item的数据
-        Log.i(TAG,"LOGO="+value.logo);
+        LogUtil.i(TAG,value.logo);
         mImagerLoader.displayImage(mViewHolder.mLogoView, value.logo);
         mViewHolder.mTitleView.setText(value.title);
         mViewHolder.mInfoView.setText(value.info.concat(mContext.getString(R.string.tian_qian)));

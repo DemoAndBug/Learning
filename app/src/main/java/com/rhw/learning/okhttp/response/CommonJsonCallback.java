@@ -2,12 +2,11 @@ package com.rhw.learning.okhttp.response;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
+import com.rhw.learning.okhttp.ResponseEntityToModule;
 import com.rhw.learning.okhttp.exception.OkHttpException;
 import com.rhw.learning.okhttp.listener.DisposeDataHandle;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
-import com.rhw.learning.utils.ResponseEntityToModule;
 
 import org.json.JSONObject;
 
@@ -36,8 +35,6 @@ public class CommonJsonCallback implements Callback {
     protected final String ERROR_MSG = "emsg";
     protected final String EMPTY_MSG = "";
     protected final String COOKIE_STORE = "Set-Cookie"; // decide the server it
-    // can has the value of
-    // set-cookie2
 
     /**
      * the java layer exception, do not same to the logic error
@@ -74,10 +71,7 @@ public class CommonJsonCallback implements Callback {
 
     @Override
     public void onResponse(final Call call, final Response response) throws IOException {
-
-
         final String result = response.body().string();
-        Log.i(TAG,"result=" + result);
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -98,7 +92,6 @@ public class CommonJsonCallback implements Callback {
     }
 
     private void handleResponse(Object responseObj) {
-        Log.i(TAG,responseObj.toString());
         if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;

@@ -1,5 +1,7 @@
 package com.rhw.learning.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +12,16 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rhw.learning.R;
 import com.rhw.learning.adapter.HomeAdapter;
+import com.rhw.learning.constant.Constant;
 import com.rhw.learning.module.recommand.BaseRecommandModel;
+import com.rhw.learning.okhttp.RequestCenter;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
-import com.rhw.learning.utils.RequestCenter;
+import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.zxing.app.CaptureActivity;
 
 
 /**
@@ -78,7 +84,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         RequestCenter.requestRecommandData(new DisposeDataListener() {
             @Override
             public void onSuccess(Object responseObj) {
-                Log.i(TAG,"==" +responseObj.toString());
                 mRecommandData = (BaseRecommandModel) responseObj;
                 //更新UI
                 showSuccessView();
@@ -86,7 +91,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Object reasonObj) {
-                    Log.i(TAG,"onFailure" + reasonObj.toString());
                 //显示请求失败View
                 showErrorView();
             }
@@ -121,5 +125,42 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+        switch (v.getId()) {
+            case R.id.qrcode_view:
+                LogUtil.i(TAG,"click qrcode");
+                if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
+                    doOpenCamera();
+                } else {
+                    requestPermission(Constant.HARDWEAR_CAMERA_CODE, Constant.HARDWEAR_CAMERA_PERMISSION);
+                }
+                break;
+        }
+
     }
+
+    @Override
+    public void doOpenCamera() {
+        Intent intent = new Intent(mContext, CaptureActivity.class);
+        startActivityForResult(intent, REQUEST_QRCODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_QRCODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    String code = data.getStringExtra("SCAN_RESULT");
+                    LogUtil.i(TAG,code);
+                    if (code.contains("http") || code.contains("https")) {
+//                        Intent intent = new Intent(mContext, AdBrowserActivity.class);
+//                        intent.putExtra(AdBrowserActivity.KEY_URL, code);
+//                        startActivity(intent);
+                    } else {
+                        Toast.makeText(mContext, code, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+        }
+    }
+
 }
