@@ -524,7 +524,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-
                     Result result = scanningImage(uri);
                     if (result == null) {
                         Looper.prepare();
@@ -593,7 +592,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
                     }
                 }
             }
-            // cheng chen de er wei ma
+
             Bitmap bitmap = Bitmap.createBitmap(QR_WIDTH, QR_HEIGHT, Bitmap.Config.ARGB_8888);
             bitmap.setPixels(pixels, 0, QR_WIDTH, 0, 0, QR_WIDTH, QR_HEIGHT);
 

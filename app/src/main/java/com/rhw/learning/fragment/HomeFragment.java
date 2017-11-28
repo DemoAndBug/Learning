@@ -3,6 +3,7 @@ package com.rhw.learning.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -152,9 +153,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     String code = data.getStringExtra("SCAN_RESULT");
                     LogUtil.i(TAG,code);
                     if (code.contains("http") || code.contains("https")) {
-//                        Intent intent = new Intent(mContext, AdBrowserActivity.class);
-//                        intent.putExtra(AdBrowserActivity.KEY_URL, code);
-//                        startActivity(intent);
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(code);
+                        intent.setData(content_url);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(mContext, code, Toast.LENGTH_SHORT).show();
                     }
