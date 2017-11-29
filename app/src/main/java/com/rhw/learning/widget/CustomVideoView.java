@@ -49,6 +49,10 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     private static final int STATE_IDLE = 0;
     private static final int STATE_PLAYING = 1;
     private static final int STATE_PAUSING = 2;
+    /**
+     *加载失败情况下会尝试加载三次
+     */
+    private static final int LOAD_TOTAL_COUNT = 3;
 
     /**
      * UI
@@ -87,10 +91,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     private int mCurrentCount;
     private int playerState = STATE_IDLE;//默认处于空闲状态
 
-    /**
-     *加载失败情况下会尝试加载三次
-     */
-    private static final int LOAD_TOTAL_COUNT = 3;
+
     /**
      * 监听屏幕是否锁屏
      */
@@ -165,7 +166,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
                     if (isPlaying()) {
                         //可以在这里更新progressbar
                         LogUtil.i(TAG, "TIME_MSG");
-                        mListener.onBufferUpdate(getCurrentPosition());
+                        //mListener.onBufferUpdate(getCurrentPosition());
                         sendEmptyMessageDelayed(TIME_MSG, TIME_INVAL);
                     }
                     break;
@@ -227,7 +228,10 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         }
     }
 
-
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
     @Override
     public void onPrepared(MediaPlayer mp) {
 
@@ -240,6 +244,8 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
                 mListener.onVideoLoadSuccess();
             }
             //满足自动播放条件，则直接播放
+            setCurrentPlayState(STATE_PAUSING);
+            resume();
         }
 
     }
@@ -255,7 +261,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         }
         playBack();
         setIsComplete(true);
-        setIsPausedClicked(true);
+        setIsRealPause(true);
     }
 
     /**
@@ -403,7 +409,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         setCurrentPlayState(STATE_IDLE);
         mCurrentCount = 0;
         setIsComplete(false);
-        setIsPausedClicked(false);
+        setIsRealPause(false);
         unRegisterBroadcastReceiver();
         mHandler.removeCallbacksAndMessages(null); //release all message and runnable
         showPauseView(false); //除了播放和loading外其余任何状态都显示pause
@@ -567,9 +573,14 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     private void entryResumeState() {
         canPlay = true;
         setCurrentPlayState(STATE_PLAYING);
-        setIsPausedClicked(false);
+        setIsRealPause(false);
         setIsComplete(false);
     }
+
+    public boolean isRealPause() {
+        return mIsRealPause;
+    }
+
     /**
      * 检测mMediaPlayer 是否为空
      */
@@ -615,6 +626,10 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         return false;
     }
 
+    public void setIsRealPause(boolean isRealPause) {
+        this.mIsRealPause = isRealPause;
+    }
+
     public boolean isFrameHidden() {
         return mFrameView.getVisibility() != View.VISIBLE;
     }
@@ -624,9 +639,6 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         mIsComplete = isComplete;
     }
 
-    public void setIsPausedClicked(boolean isClicked) {
-        this.mIsRealPause = isClicked;
-    }
     private void showPauseView(boolean show) {
         mFullBtn.setVisibility(show ? View.VISIBLE : View.GONE);
         mMiniPlayBtn.setVisibility(show ? View.GONE : View.VISIBLE);

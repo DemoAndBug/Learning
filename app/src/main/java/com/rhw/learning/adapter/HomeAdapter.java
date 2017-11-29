@@ -14,7 +14,7 @@ import com.rhw.learning.R;
 import com.rhw.learning.module.home.RecommandBodyValue;
 import com.rhw.learning.utils.ImageLoaderManager;
 import com.rhw.learning.utils.LogUtil;
-import com.rhw.learning.widget.CustomTest;
+import com.rhw.learning.widget.CustomVideoView;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Author:renhongwei
  * Date:2017/11/26 on 16:21
  */
-public class HomeAdapter extends BaseAdapter {
+public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPlayerListener{
 
     private static final String TAG = "HomeAdapter";
     /**
@@ -40,7 +40,7 @@ public class HomeAdapter extends BaseAdapter {
     private ArrayList<RecommandBodyValue> mData;
     private ViewHolder mViewHolder;
     private ImageLoaderManager mImagerLoader;
-    private CustomTest mCustomView;
+    private CustomVideoView mCustomView;
 
 
 
@@ -110,7 +110,7 @@ public class HomeAdapter extends BaseAdapter {
                     mViewHolder.mVieoContentLayout = (RelativeLayout)
                             convertView.findViewById(R.id.video_ad_layout);
                     mViewHolder.mShareView = (ImageView) convertView.findViewById(R.id.item_share_view);
-                    mCustomView = new CustomTest(mContext,mViewHolder.mVieoContentLayout);
+                    mCustomView = new CustomVideoView(mContext,mViewHolder.mVieoContentLayout);
                     mCustomView.setDataSource(value.resource);
                     mViewHolder.mVieoContentLayout.addView(mCustomView);
                     break;
@@ -153,6 +153,48 @@ public class HomeAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
+    @Override
+    public void onBufferUpdate(int time) {
+
+    }
+
+    @Override
+    public void onClickFullScreenBtn() {
+
+    }
+
+    @Override
+    public void onClickVideo() {
+        mCustomView.resume();
+
+    }
+
+    @Override
+    public void onClickBackBtn() {
+
+    }
+
+    @Override
+    public void onClickPlay() {
+        mCustomView.resume();
+    }
+
+    @Override
+    public void onVideoLoadSuccess() {
+
+    }
+
+    @Override
+    public void onVideoLoadFailed() {
+
+    }
+
+    @Override
+    public void onVideoLoadComplete() {
+
+    }
+
     private static class ViewHolder {
         //所有Card共有属性
         private CircleImageView mLogoView;
