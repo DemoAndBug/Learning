@@ -1,4 +1,4 @@
-package com.rhw.learning.module.recommand;
+package com.rhw.learning.module.home;
 
 
 import com.rhw.learning.module.BaseModel;

@@ -1,7 +1,7 @@
 package com.rhw.learning.okhttp;
 
 import com.rhw.learning.constant.HttpConstants;
-import com.rhw.learning.module.recommand.BaseRecommandModel;
+import com.rhw.learning.module.home.BaseRecommandModel;
 import com.rhw.learning.okhttp.listener.DisposeDataHandle;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
 import com.rhw.learning.okhttp.request.CommonRequest;

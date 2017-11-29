@@ -1,6 +1,7 @@
 package com.rhw.learning.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rhw.learning.R;
-import com.rhw.learning.module.recommand.RecommandBodyValue;
+import com.rhw.learning.module.home.RecommandBodyValue;
 import com.rhw.learning.utils.ImageLoaderManager;
 import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.widget.CustomTest;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ public class HomeAdapter extends BaseAdapter {
     private ArrayList<RecommandBodyValue> mData;
     private ViewHolder mViewHolder;
     private ImageLoaderManager mImagerLoader;
+    private CustomTest mCustomView;
 
 
 
@@ -100,12 +103,16 @@ public class HomeAdapter extends BaseAdapter {
                     mViewHolder.mZanView = (TextView) convertView.findViewById(R.id.item_zan_view);
                     break;
                 case VIDOE_TYPE:
+                    Log.i("adapter", "resource:"+value.resource + " title:" + value.title);
                     //显示video卡片
                     mViewHolder = new ViewHolder();
                     convertView = mInflate.inflate(R.layout.item_video_layout, parent, false);
                     mViewHolder.mVieoContentLayout = (RelativeLayout)
                             convertView.findViewById(R.id.video_ad_layout);
                     mViewHolder.mShareView = (ImageView) convertView.findViewById(R.id.item_share_view);
+                    mCustomView = new CustomTest(mContext,mViewHolder.mVieoContentLayout);
+                    mCustomView.setDataSource(value.resource);
+                    mViewHolder.mVieoContentLayout.addView(mCustomView);
                     break;
             }
             mViewHolder.mLogoView = (CircleImageView) convertView.findViewById(R.id.item_logo_view);
@@ -141,6 +148,7 @@ public class HomeAdapter extends BaseAdapter {
                 mImagerLoader.displayImage(mViewHolder.mProductView, value.url.get(0));
                 break;
             case VIDOE_TYPE:
+
                 break;
         }
         return convertView;

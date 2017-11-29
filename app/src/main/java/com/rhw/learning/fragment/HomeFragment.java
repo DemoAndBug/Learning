@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.rhw.learning.R;
 import com.rhw.learning.adapter.HomeAdapter;
 import com.rhw.learning.constant.Constant;
-import com.rhw.learning.module.recommand.BaseRecommandModel;
+import com.rhw.learning.module.home.BaseRecommandModel;
 import com.rhw.learning.okhttp.RequestCenter;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
 import com.rhw.learning.utils.LogUtil;
