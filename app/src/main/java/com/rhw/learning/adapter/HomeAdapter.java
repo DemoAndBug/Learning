@@ -1,6 +1,7 @@
 package com.rhw.learning.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.rhw.learning.R;
 import com.rhw.learning.module.home.RecommandBodyValue;
 import com.rhw.learning.utils.ImageLoaderManager;
 import com.rhw.learning.utils.LogUtil;
-import com.rhw.learning.widget.CustomVideoView;
+import com.rhw.learning.video.BrowserActivity;
+import com.rhw.learning.video.VideoInterface;
+import com.rhw.learning.video.VideoManager;
 
 import java.util.ArrayList;
 
@@ -24,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Author:renhongwei
  * Date:2017/11/26 on 16:21
  */
-public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPlayerListener{
+public class HomeAdapter extends BaseAdapter  {
 
     private static final String TAG = "HomeAdapter";
     /**
@@ -40,11 +44,10 @@ public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPl
     private ArrayList<RecommandBodyValue> mData;
     private ViewHolder mViewHolder;
     private ImageLoaderManager mImagerLoader;
-    private CustomVideoView mCustomView;
+    private VideoManager mVideoManager;
 
 
-
-    public HomeAdapter (Context context, ArrayList<RecommandBodyValue> data  ){
+    public HomeAdapter(Context context, ArrayList<RecommandBodyValue> data) {
         this.mContext = context;
         this.mData = data;
         mInflate = LayoutInflater.from(mContext);
@@ -103,16 +106,31 @@ public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPl
                     mViewHolder.mZanView = (TextView) convertView.findViewById(R.id.item_zan_view);
                     break;
                 case VIDOE_TYPE:
-                    Log.i("adapter", "resource:"+value.resource + " title:" + value.title);
+                    Log.i("adapter", "resource:" + value.resource + " title:" + value.title);
                     //显示video卡片
                     mViewHolder = new ViewHolder();
                     convertView = mInflate.inflate(R.layout.item_video_layout, parent, false);
                     mViewHolder.mVieoContentLayout = (RelativeLayout)
                             convertView.findViewById(R.id.video_ad_layout);
                     mViewHolder.mShareView = (ImageView) convertView.findViewById(R.id.item_share_view);
-                    mCustomView = new CustomVideoView(mContext,mViewHolder.mVieoContentLayout);
-                    mCustomView.setDataSource(value.resource);
-                    mViewHolder.mVieoContentLayout.addView(mCustomView);
+                    mVideoManager = new VideoManager(mViewHolder.mVieoContentLayout,
+                            new Gson().toJson(value), null);
+                    mVideoManager.setVideoResultListener(new VideoInterface() {
+                        @Override
+                        public void onVideoSuccess() {
+                        }
+
+                        @Override
+                        public void onVideoFailed() {
+                        }
+
+                        @Override
+                        public void onClickVideo(String url) {
+                            Intent intent = new Intent(mContext, BrowserActivity.class);
+                            intent.putExtra(BrowserActivity.KEY_URL, url);
+                            mContext.startActivity(intent);
+                        }
+                    });
                     break;
             }
             mViewHolder.mLogoView = (CircleImageView) convertView.findViewById(R.id.item_logo_view);
@@ -125,7 +143,7 @@ public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPl
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         //填充item的数据
-        LogUtil.i(TAG,value.logo);
+        LogUtil.i(TAG, value.logo);
         mImagerLoader.displayImage(mViewHolder.mLogoView, value.logo);
         mViewHolder.mTitleView.setText(value.title);
         mViewHolder.mInfoView.setText(value.info.concat(mContext.getString(R.string.tian_qian)));
@@ -152,47 +170,6 @@ public class HomeAdapter extends BaseAdapter  implements CustomVideoView.VideoPl
                 break;
         }
         return convertView;
-    }
-
-    @Override
-    public void onBufferUpdate(int time) {
-
-    }
-
-    @Override
-    public void onClickFullScreenBtn() {
-
-    }
-
-    @Override
-    public void onClickVideo() {
-        mCustomView.resume();
-
-    }
-
-    @Override
-    public void onClickBackBtn() {
-
-    }
-
-    @Override
-    public void onClickPlay() {
-        mCustomView.resume();
-    }
-
-    @Override
-    public void onVideoLoadSuccess() {
-
-    }
-
-    @Override
-    public void onVideoLoadFailed() {
-
-    }
-
-    @Override
-    public void onVideoLoadComplete() {
-
     }
 
     private static class ViewHolder {

@@ -1,14 +1,22 @@
 package com.rhw.learning.utils;
 
+import android.Manifest.permission;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 
-import android.Manifest.permission;
+import com.rhw.learning.constant.Constant;
+
+import java.io.ByteArrayInputStream;
 
 /**
  * Author:renhongwei
@@ -54,5 +62,72 @@ public class Utils {
             return true;
         }
         return false;
+    }
+
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        if (windowManager == null) {
+            return displayMetrics;
+        }
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics;
+    }
+
+    public static BitmapDrawable decodeImage(String base64drawable) {
+        byte[] rawImageData = Base64.decode(base64drawable, 0);
+        return new BitmapDrawable(null, new ByteArrayInputStream(rawImageData));
+    }
+
+    public static boolean isPad(Context context) {
+
+        //如果能打电话那可能是平板或手机，再根据配置判断
+        if (canTelephone(context)) {
+            //能打电话可能是手机也可能是平板
+            return (context.getResources().getConfiguration().
+                    screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                    >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+        } else {
+            return true; //不能打电话一定是平板
+        }
+    }
+
+    private static boolean canTelephone(Context context) {
+        TelephonyManager telephony = (TelephonyManager)
+                context.getSystemService(Context.TELEPHONY_SERVICE);
+        return (telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_NONE) ? false : true;
+    }
+
+    public static boolean containString(String source, String destation) {
+
+        if (source.equals("") || destation.equals("")) {
+            return false;
+        }
+
+        if (source.contains(destation)) {
+            return true;
+        }
+        return false;
+    }
+
+    //decide can autoplay the ad
+    public static boolean canAutoPlay(Context context, Constant.AutoPlaySetting setting) {
+        boolean result = true;
+        switch (setting) {
+            case AUTO_PLAY_3G_4G_WIFI:
+                result = true;
+                break;
+            case AUTO_PLAY_ONLY_WIFI:
+                if (isWifiConnected(context)) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+                break;
+            case AUTO_PLAY_NEVER:
+                result = false;
+                break;
+        }
+        return result;
     }
 }

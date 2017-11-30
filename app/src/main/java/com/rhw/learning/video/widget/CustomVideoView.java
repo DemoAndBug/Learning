@@ -1,4 +1,4 @@
-package com.rhw.learning.widget;
+package com.rhw.learning.video.widget;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -350,13 +350,20 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == this.mMiniPlayBtn) {
-
+            if (this.playerState == STATE_PAUSING) {
+                if (Utils.getVisiblePercent(mParentContainer)
+                        > Constant.VIDEO_SCREEN_PERCENT) {
+                    resume();
+                    this.mListener.onClickPlay();
+                }
+            } else {
+                load();
+            }
         } else if (v == this.mFullBtn) {
             this.mListener.onClickFullScreenBtn();
         } else if (v == mVideoView) {
             this.mListener.onClickVideo();
         }
-
     }
     /**
      * 监听锁屏事件的广播接收器
@@ -668,6 +675,8 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         mMiniPlayBtn.setVisibility(View.GONE);
         mFrameView.setVisibility(View.GONE);
     }
+
+
 
     /**
      * 获取当前所处的位置
