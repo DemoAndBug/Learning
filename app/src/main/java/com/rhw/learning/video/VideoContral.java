@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.rhw.learning.constant.Constant;
 import com.rhw.learning.utils.Utils;
+import com.rhw.learning.video.monitor.VideoValue;
 import com.rhw.learning.video.widget.CustomVideoView;
 import com.rhw.learning.video.widget.VideoFullDialog;
 

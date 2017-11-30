@@ -16,7 +16,7 @@ import com.rhw.learning.constant.Constant;
 import com.rhw.learning.utils.LogUtil;
 import com.rhw.learning.video.BrowserActivity;
 import com.rhw.learning.video.VideoContral;
-import com.rhw.learning.video.VideoValue;
+import com.rhw.learning.video.monitor.VideoValue;
 
 /**
  * function: 全屏显示视频

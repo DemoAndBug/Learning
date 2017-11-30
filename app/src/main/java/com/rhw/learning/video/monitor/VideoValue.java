@@ -1,6 +1,5 @@
-package com.rhw.learning.video;
+package com.rhw.learning.video.monitor;
 
-import com.rhw.learning.video.monitor.Monitor;
 import com.rhw.learning.video.monitor.emevent.EMEvent;
 
 import java.util.ArrayList;
