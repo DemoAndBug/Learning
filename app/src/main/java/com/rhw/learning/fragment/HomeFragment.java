@@ -21,7 +21,7 @@ import com.rhw.learning.constant.Constant;
 import com.rhw.learning.module.home.BaseRecommandModel;
 import com.rhw.learning.okhttp.RequestCenter;
 import com.rhw.learning.okhttp.listener.DisposeDataListener;
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.zxing.app.CaptureActivity;
 
 
@@ -128,7 +128,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.qrcode_view:
-                LogUtil.i(TAG,"click qrcode");
+                LogUtils.i(TAG,"click qrcode");
                 if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
                     doOpenCamera();
                 } else {
@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case REQUEST_QRCODE:
                 if (resultCode == Activity.RESULT_OK) {
                     String code = data.getStringExtra("SCAN_RESULT");
-                    LogUtil.i(TAG,code);
+                    LogUtils.i(TAG,code);
                     if (code.contains("http") || code.contains("https")) {
                         Intent intent = new Intent();
                         intent.setAction("android.intent.action.VIEW");

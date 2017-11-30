@@ -9,7 +9,7 @@ import com.rhw.learning.BuildConfig;
  * Date:2017/11/28 on 13:32
  */
 
-public class LogUtil {
+public class LogUtils {
     private final static boolean DEBUG = BuildConfig.DEBUG;
 
     public static void v(String tag, String msg) {

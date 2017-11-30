@@ -28,7 +28,7 @@ import android.widget.RelativeLayout;
 
 import com.rhw.learning.R;
 import com.rhw.learning.constant.Constant;
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.utils.Utils;
 
 /**
@@ -165,7 +165,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
                 case TIME_MSG:
                     if (isPlaying()) {
                         //可以在这里更新progressbar
-                        LogUtil.i(TAG, "TIME_MSG");
+                        LogUtils.i(TAG, "TIME_MSG");
                         //mListener.onBufferUpdate(getCurrentPosition());
                         sendEmptyMessageDelayed(TIME_MSG, TIME_INVAL);
                     }
@@ -273,7 +273,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      */
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
-        LogUtil.e(TAG, "do error:" + what);
+        LogUtils.e(TAG, "do error:" + what);
         this.playerState = STATE_ERROR;
         mMediaPlayer = mp;
         if (mMediaPlayer != null) {
@@ -315,7 +315,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        LogUtil.i(TAG, "onSurfaceTextureAvailable");
+        LogUtils.i(TAG, "onSurfaceTextureAvailable");
         videoSurface = new Surface(surface);
         checkMediaPlayer();
         mMediaPlayer.setSurface(videoSurface);
@@ -324,7 +324,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
 
     @Override
     public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-        LogUtil.i(TAG, "onSurfaceTextureSizeChanged");
+        LogUtils.i(TAG, "onSurfaceTextureSizeChanged");
     }
 
     @Override
@@ -406,7 +406,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
     }
 
     public void destroy() {
-        LogUtil.d(TAG, " do destroy");
+        LogUtils.d(TAG, " do destroy");
         if (this.mMediaPlayer != null) {
             this.mMediaPlayer.setOnSeekCompleteListener(null);
             this.mMediaPlayer.stop();
@@ -443,7 +443,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         if (this.playerState != STATE_IDLE) {
             return;
         }
-        LogUtil.d(TAG, "do play url = " + this.mUrl);
+        LogUtils.d(TAG, "do play url = " + this.mUrl);
         showLoadingView();
         try {
             setCurrentPlayState(STATE_IDLE);
@@ -452,13 +452,13 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
             mMediaPlayer.setDataSource(this.mUrl);
             mMediaPlayer.prepareAsync(); //开始异步加载
         } catch (Exception e) {
-            LogUtil.e(TAG, e.getMessage());
+            LogUtils.e(TAG, e.getMessage());
             stop(); //error以后重新调用stop加载
         }
     }
 
     public void stop() {
-        LogUtil.d(TAG, " do stop");
+        LogUtils.d(TAG, " do stop");
         if (this.mMediaPlayer != null) {
             this.mMediaPlayer.reset();
             this.mMediaPlayer.setOnSeekCompleteListener(null);
@@ -483,7 +483,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         if (this.playerState != STATE_PLAYING) {
             return;
         }
-        LogUtil.d(TAG, "do pause");
+        LogUtils.d(TAG, "do pause");
         setCurrentPlayState(STATE_PAUSING);
         if (isPlaying()) {
             mMediaPlayer.pause();
@@ -502,7 +502,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         if (this.playerState != STATE_PAUSING) {
             return;
         }
-        LogUtil.d(TAG, "do resume");
+        LogUtils.d(TAG, "do resume");
         if (!isPlaying()) {
             entryResumeState();
             mMediaPlayer.setOnSeekCompleteListener(null);
@@ -525,7 +525,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      *播放完后重置播放状态到初始值，并保存为Pause状态 避免重复加载
      */
     public void playBack() {
-        LogUtil.d(TAG, " do playBack");
+        LogUtils.d(TAG, " do playBack");
         setCurrentPlayState(STATE_PAUSING);
         mHandler.removeCallbacksAndMessages(null);
         if (mMediaPlayer != null) {
@@ -547,7 +547,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
             mMediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
                 @Override
                 public void onSeekComplete(MediaPlayer mp) {
-                    LogUtil.d(TAG, "do seek and resume");
+                    LogUtils.d(TAG, "do seek and resume");
                     mMediaPlayer.start();
                     mHandler.sendEmptyMessage(TIME_MSG);
                 }
@@ -566,7 +566,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
             mMediaPlayer.setOnSeekCompleteListener(new MediaPlayer.OnSeekCompleteListener() {
                 @Override
                 public void onSeekComplete(MediaPlayer mp) {
-                    LogUtil.d(TAG, "do seek and pause");
+                    LogUtils.d(TAG, "do seek and pause");
                     mMediaPlayer.pause();
                     mHandler.removeCallbacksAndMessages(null);
                 }
@@ -617,7 +617,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
      * @param mute
      */
     public void mute(boolean mute) {
-        LogUtil.d(TAG, "mute");
+        LogUtils.d(TAG, "mute");
         isMute = mute;
         if (mMediaPlayer != null && this.audioManager != null) {
             float volume = isMute ? 0.0f : 1.0f;
@@ -734,7 +734,7 @@ public class CustomVideoView extends RelativeLayout implements View.OnClickListe
         if (playerState != STATE_PLAYING) {
             return;
         }
-        LogUtil.d(TAG, "do full pause");
+        LogUtils.d(TAG, "do full pause");
         setCurrentPlayState(STATE_PAUSING);
         if (isPlaying()) {
             mMediaPlayer.pause();

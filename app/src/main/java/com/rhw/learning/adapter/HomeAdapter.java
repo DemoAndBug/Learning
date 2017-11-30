@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.rhw.learning.R;
 import com.rhw.learning.module.home.RecommandBodyValue;
 import com.rhw.learning.utils.ImageLoaderManager;
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.video.BrowserActivity;
 import com.rhw.learning.video.VideoInterface;
 import com.rhw.learning.video.VideoManager;
@@ -143,7 +143,7 @@ public class HomeAdapter extends BaseAdapter  {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         //填充item的数据
-        LogUtil.i(TAG, value.logo);
+        LogUtils.i(TAG, value.logo);
         mImagerLoader.displayImage(mViewHolder.mLogoView, value.logo);
         mViewHolder.mTitleView.setText(value.title);
         mViewHolder.mInfoView.setText(value.info.concat(mContext.getString(R.string.tian_qian)));

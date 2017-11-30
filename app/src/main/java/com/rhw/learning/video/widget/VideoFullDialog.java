@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.rhw.learning.R;
 import com.rhw.learning.constant.Constant;
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.video.BrowserActivity;
 import com.rhw.learning.video.VideoContral;
 import com.rhw.learning.video.monitor.VideoValue;
@@ -91,7 +91,7 @@ public class VideoFullDialog extends Dialog implements CustomVideoView.VideoPlay
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        LogUtil.i(TAG, "onWindowFocusChanged");
+        LogUtils.i(TAG, "onWindowFocusChanged");
         mVideoView.isShowFullBtn(false); //防止第一次，有些手机仍显示全屏按钮
         if (!hasFocus) {
             mPosition = mVideoView.getCurrentPosition();
@@ -108,7 +108,7 @@ public class VideoFullDialog extends Dialog implements CustomVideoView.VideoPlay
 
     @Override
     public void dismiss() {
-        LogUtil.e(TAG, "dismiss");
+        LogUtils.e(TAG, "dismiss");
         this.mParentView.removeView(mVideoView);
         super.dismiss();
     }

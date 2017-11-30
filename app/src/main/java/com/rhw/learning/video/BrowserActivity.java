@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.utils.Utils;
 import com.rhw.learning.video.browser.Base64Drawables;
 import com.rhw.learning.video.browser.BrowserLayout;
@@ -84,7 +84,7 @@ public class BrowserActivity extends AppCompatActivity {
     @Override
     protected final void onPause() {
         super.onPause();
-        LogUtil.i(LOG_TAG, "onPause");
+        LogUtils.i(LOG_TAG, "onPause");
         if (mAdBrowserWebview != null) {
             mAdBrowserWebview.onPause();
         }
@@ -92,7 +92,7 @@ public class BrowserActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        LogUtil.i(LOG_TAG, " onDestroy");
+        LogUtils.i(LOG_TAG, " onDestroy");
         if (mAdBrowserWebview != null) {
             mAdBrowserWebview.clearCache(true);
         }
@@ -102,7 +102,7 @@ public class BrowserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.i(LOG_TAG, "onResume");
+        LogUtils.i(LOG_TAG, "onResume");
         if (mIsBackFromMarket) {
             //finish();
         }

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.rhw.learning.utils.LogUtil;
+import com.rhw.learning.utils.LogUtils;
 
 import java.net.URISyntaxException;
 
@@ -71,7 +71,7 @@ public class BrowserWebViewClient extends WebViewClient {
 
     public BrowserWebViewClient(Listener listener) {
         if (listener == null) {
-            LogUtil.i(LOG_TAG, "Error: Wrong listener");
+            LogUtils.i(LOG_TAG, "Error: Wrong listener");
             mListener = mEmptyListener;
         } else {
             mListener = listener;
@@ -80,7 +80,7 @@ public class BrowserWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        LogUtil.i(LOG_TAG, "shouldOverrideUrlLoading url=" + url);
+        LogUtils.i(LOG_TAG, "shouldOverrideUrlLoading url=" + url);
         Context context = view.getContext();
 
         Uri uri;
@@ -227,7 +227,7 @@ public class BrowserWebViewClient extends WebViewClient {
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
         String mess = "onReceivedError: " + description;
-        LogUtil.i(LOG_TAG, mess);
+        LogUtils.i(LOG_TAG, mess);
         mListener.onReceiveError();
     }
 }
