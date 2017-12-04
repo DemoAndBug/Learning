@@ -281,6 +281,8 @@ public class VideoContral implements CustomVideoView.VideoPlayerListener {
 
     }
 
+
+
     @Override
     public void onVideoLoadComplete() {
         try {

@@ -148,7 +148,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
         }
-
         fragmentTransaction.commit();
     }
 }

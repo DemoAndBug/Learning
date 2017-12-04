@@ -26,7 +26,7 @@
     <string name="auto_player_only_wifi">仅Wifi</string>
     <string name="auto_player_never">关闭</string>
     <string name="video_setting">视频播放环境条件</string>
-    <string name="share_imooc">分享imooc给朋友</string>
+    <string name="share_imooc">分享给朋友</string>
     <string name="my_qrcode">我的二维码</string>
     <string name="please_wait">加载中...</string>
     <string name="personal_info">的个人主页</string>
@@ -98,4 +98,5 @@
     <string name="welcom_head_04">提高效率,少熬夜</string>
     <string name="welcom_content_04">设法提高我们的工作效率,而不是延长我们的工作时间.</string>
     <string name="video_info">杨洋郑爽“聊”破次元盛,甜蜜演绎《微微一笑很优酷》优酷独家热播中</string>
+    <string name="title_activity_setting">设置</string>
 </resources>
