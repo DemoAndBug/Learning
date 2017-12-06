@@ -9,7 +9,7 @@
 ![image](https://github.com/DemoAndBug/Learning/blob/master/Screenshots/自定义视频播放View.gif)
 
 ## 关于About
-  本项目所有接口Api均利用Charles抓包分析所得，只用于分享、学习。
+  本项目所有接口Api均通过Charle映射本地Json数据，里面的数据可以任意修改，只用于分享、学习。
   该项目是本人为熟悉开发流程而设，不得用于商业用途，若有损他人利益则立即删除。
   主要功能包括信息浏览与视频播放（仍在开发中，bug可能会比较多...）
 
