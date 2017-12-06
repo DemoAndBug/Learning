@@ -7,3 +7,25 @@
 ![image](https://github.com/DemoAndBug/Learning/blob/master/Screenshots/二维码扫描.gif)
 
 ![image](https://github.com/DemoAndBug/Learning/blob/master/Screenshots/自定义视频播放View.gif)
+
+## 关于About
+  本项目所有接口Api均利用Charles抓包分析所得，只用于分享、学习。
+  该项目是本人为熟悉开发流程而设，不得用于商业用途，若有损他人利益则立即删除。
+  主要功能包括信息浏览与视频播放（仍在开发中，bug可能会比较多...）
+
+## 证书License
+```
+   Copyright 2016 452MJ
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
