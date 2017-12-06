@@ -3,6 +3,8 @@ package com.rhw.learning.application;
 import android.app.Application;
 import android.content.Context;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Author:renhongwei
  * Date:2017/11/23 on 14:51
@@ -24,6 +26,15 @@ public class LearningApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initJpush(this);
     }
 
+    /**
+     * 初始化Jpush
+     * @param context
+     */
+    private void   initJpush(Context  context){
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+    }
 }

@@ -9,6 +9,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+
     }
     buildTypes {
         release {
@@ -35,4 +41,13 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     implementation files('libs/universal-image-loader-1.9.5.jar')
     implementation files('libs/zxing.jar')
+    implementation files('libs/MobCommons-2017.1024.1907.jar')
+    implementation files('libs/MobTools-2017.1024.1907.jar')
+    implementation files('libs/ShareSDK-Core-3.1.1.jar')
+    implementation files('libs/ShareSDK-QQ-3.1.1.jar')
+    implementation files('libs/ShareSDK-QZone-3.1.1.jar')
+    implementation files('libs/ShareSDK-Wechat-3.1.1.jar')
+    implementation files('libs/ShareSDK-Wechat-Core-3.1.1.jar')
+    implementation files('libs/ShareSDK-Wechat-Favorite-3.1.1.jar')
+    implementation files('libs/ShareSDK-Wechat-Moments-3.1.1.jar')
 }
