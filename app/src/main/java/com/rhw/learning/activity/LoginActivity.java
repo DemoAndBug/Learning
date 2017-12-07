@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rhw.learning.R;
 import com.rhw.learning.manager.DialogManager;
@@ -84,10 +85,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String password = mPasswordView.getText().toString().trim();
 
         if (TextUtils.isEmpty(userName)) {
+            Toast.makeText(this,"用户名不能为空",Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -78,7 +78,7 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
         mLoginView.setOnClickListener(this);
         mVideoPlayerView = (TextView) mContentView.findViewById(R.id.video_setting_view);
         mVideoPlayerView.setOnClickListener(this);
-        mShareView = (TextView) mContentView.findViewById(R.id.share_imooc_view);
+        mShareView = (TextView) mContentView.findViewById(R.id.share_view);
         mShareView.setOnClickListener(this);
         mQrCodeView = (TextView) mContentView.findViewById(R.id.my_qrcode_view);
         mQrCodeView.setOnClickListener(this);
@@ -113,7 +113,7 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.share_imooc_view:
+            case R.id.share_view:
                 //分享
                 break;
             case R.id.login_layout:
