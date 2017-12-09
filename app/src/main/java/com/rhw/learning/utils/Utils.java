@@ -2,6 +2,7 @@ package com.rhw.learning.utils;
 
 import android.Manifest.permission;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Rect;
@@ -92,6 +93,17 @@ public class Utils {
         }
     }
 
+    public static int getVersionCode(Context context) {
+        int versionCode = 1;
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = pi.versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
     private static boolean canTelephone(Context context) {
         TelephonyManager telephony = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);

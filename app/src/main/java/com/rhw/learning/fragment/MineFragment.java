@@ -11,12 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rhw.learning.R;
 import com.rhw.learning.activity.LoginActivity;
 import com.rhw.learning.activity.SettingActivity;
 import com.rhw.learning.constant.Constant;
 import com.rhw.learning.manager.UserManager;
+import com.rhw.learning.module.update.UpdateModel;
+import com.rhw.learning.okhttp.RequestCenter;
+import com.rhw.learning.okhttp.listener.DisposeDataListener;
+import com.rhw.learning.service.update.UpdateService;
+import com.rhw.learning.utils.Utils;
+import com.rhw.learning.view.associatemail.CommonDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -136,7 +143,7 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
                 break;
             case R.id.update_view:
                 if (hasPermission(Constant.WRITE_READ_EXTERNAL_PERMISSION)) {
-
+                    checkVersion();
                 } else {
                     requestPermission(Constant.WRITE_READ_EXTERNAL_CODE, Constant.WRITE_READ_EXTERNAL_PERMISSION);
                 }
@@ -171,6 +178,36 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
     }
 
 
+
+    //发送版本检查更新请求
+    private void checkVersion() {
+        RequestCenter.checkVersion(new DisposeDataListener() {
+            @Override
+            public void onSuccess(Object responseObj) {
+                final UpdateModel updateModel = (UpdateModel) responseObj;
+                if (Utils.getVersionCode(mContext) < updateModel.data.currentVersion) {
+                    //说明有新版本,开始下载
+                    CommonDialog dialog = new CommonDialog(mContext, getString(R.string.update_new_version),
+                            getString(R.string.update_title), getString(R.string.update_install),
+                            getString(R.string.cancel), new CommonDialog.DialogClickListener() {
+                        @Override
+                        public void onDialogClick() {
+                            Intent intent = new Intent(mContext, UpdateService.class);
+                            mContext.startService(intent);
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    //弹出一个toast提示当前已经是最新版本等处理
+                }
+            }
+
+            @Override
+            public void onFailure(Object reasonObj) {
+                Toast.makeText(mContext,"下载失败",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     /**
      * 接收mina发送来的消息，并更新UI
      */
