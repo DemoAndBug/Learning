@@ -1,9 +1,9 @@
 package com.rhw.learning.okhttp.listener;
 
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 13:19
  * function:业务处理的地方，包括java层异常和业务层异常
+ * @author Simon
  */
 public interface DisposeDataListener {
 

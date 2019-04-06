@@ -12,8 +12,9 @@ import java.net.URL;
 import java.text.DecimalFormat;
 
 /**
- * Author:renhongwei
  * Date:2017/12/9 on 14:26
+ *
+ * @author Simon
  */
 public class UpdateDownloadRequest implements Runnable {
     private int startPos = 0;
@@ -45,7 +46,7 @@ public class UpdateDownloadRequest implements Runnable {
                 contentLength = connection.getContentLength();
                 if (!Thread.currentThread().isInterrupted()) {
                     if (downloadHandler != null) {
-                        downloadHandler.sendResponseMessage(connection.getInputStream());//取得与远程文件的流
+                        downloadHandler.sendResponseMessage(connection.getInputStream());
                     }
                 }
             } catch (IOException e) {
@@ -79,13 +80,21 @@ public class UpdateDownloadRequest implements Runnable {
         isDownloading = false;
     }
 
+    public enum FailureCode {
+        UnknownHost, Socket, SocketTimeout, ConnectTimeout, IO, HttpResponse, JSON, Interrupted
+    }
+
     public class DownloadResponseHandler {
         protected static final int SUCCESS_MESSAGE = 0;
         protected static final int FAILURE_MESSAGE = 1;
         protected static final int START_MESSAGE = 2;
         protected static final int FINISH_MESSAGE = 3;
         protected static final int NETWORK_OFF = 4;
+        private static final int PROGRESS_CHANGED = 5;
+        private static final int PAUSED_MESSAGE = 7;
         private Handler handler;
+        private int mCompleteSize = 0;
+        private int progress = 0;
 
         public DownloadResponseHandler() {
             if (Looper.myLooper() != null) {
@@ -103,6 +112,11 @@ public class UpdateDownloadRequest implements Runnable {
             downloadListener.onFinished(mCompleteSize, "");
         }
 
+        //
+        // Pre-processing of messages (in original calling thread, typically the
+        // UI thread)
+        //
+
         public void onFailure(FailureCode failureCode) {
             downloadListener.onFailure();
         }
@@ -112,17 +126,12 @@ public class UpdateDownloadRequest implements Runnable {
         }
 
         private void sendProgressChangedMessage(int progress) {
-            sendMessage(obtainMessage(PROGRESS_CHANGED, new Object[] { progress }));
+            sendMessage(obtainMessage(PROGRESS_CHANGED, new Object[]{progress}));
         }
 
         protected void sendFailureMessage(FailureCode failureCode) {
-            sendMessage(obtainMessage(FAILURE_MESSAGE, new Object[] { failureCode }));
+            sendMessage(obtainMessage(FAILURE_MESSAGE, new Object[]{failureCode}));
         }
-
-        //
-        // Pre-processing of messages (in original calling thread, typically the
-        // UI thread)
-        //
 
         protected void handlePausedMessage() {
             downloadListener.onPaused(progress, mCompleteSize, "");
@@ -140,7 +149,6 @@ public class UpdateDownloadRequest implements Runnable {
             sendMessage(obtainMessage(FINISH_MESSAGE, null));
         }
 
-        // Methods which emulate android's Handler and Message methods
         protected void handleSelfMessage(Message msg) {
             Object[] response;
             switch (msg.what) {
@@ -157,6 +165,8 @@ public class UpdateDownloadRequest implements Runnable {
                     break;
                 case FINISH_MESSAGE:
                     onFinish();
+                    break;
+                default:
                     break;
             }
         }
@@ -185,11 +195,6 @@ public class UpdateDownloadRequest implements Runnable {
             DecimalFormat fnum = new DecimalFormat("0.00");
             return fnum.format(value);
         }
-
-        private int mCompleteSize = 0;
-        private int progress = 0;
-        private static final int PROGRESS_CHANGED = 5;
-        private static final int PAUSED_MESSAGE = 7;
 
         void sendResponseMessage(InputStream is) {
             RandomAccessFile randomAccessFile = null;
@@ -241,9 +246,5 @@ public class UpdateDownloadRequest implements Runnable {
                 }
             }
         }
-    }
-
-    public enum FailureCode {
-        UnknownHost, Socket, SocketTimeout, ConnectTimeout, IO, HttpResponse, JSON, Interrupted
     }
 }

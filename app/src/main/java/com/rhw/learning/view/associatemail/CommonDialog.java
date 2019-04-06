@@ -14,9 +14,9 @@ import com.rhw.learning.R;
 import com.rhw.learning.utils.Utils;
 
 /**
- * Author:renhongwei
  * Date:2017/12/9 on 14:19
  * Function:通用消息对话框
+ * @author Simon
  */
 public class CommonDialog extends Dialog {
 

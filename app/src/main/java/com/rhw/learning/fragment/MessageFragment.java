@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.rhw.learning.R;
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 20:37
+ * @author Simon
  */
 public class MessageFragment extends BaseFragment {
 

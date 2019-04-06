@@ -8,8 +8,8 @@ import com.rhw.learning.video.monitor.VideoValue;
 import com.rhw.learning.video.widget.CustomVideoView;
 
 /**
- * Author:renhongwei
  * Date:2017/11/30 on 14:55
+ * @author Simon
  */
 public class VideoManager implements VideoContral.VideoContralListener {
 

@@ -3,8 +3,8 @@ package com.rhw.learning.jpush;
 import com.rhw.learning.module.BaseModel;
 
 /**
- * Author:renhongwei
  * Date:2017/12/6 on 11:42
+ * @author Simon
  */
 public class PushMessage extends BaseModel {
     // 消息类型

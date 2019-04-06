@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 11:47
  * function：封装所有的请求参数到hashmap中
+ * @author Simon
  */
 public class RequestParams {
 
@@ -69,7 +69,6 @@ public class RequestParams {
     }
 
     public void put(String key, Object object) throws FileNotFoundException {
-
         if (key != null) {
             fileParams.put(key, object);
         }

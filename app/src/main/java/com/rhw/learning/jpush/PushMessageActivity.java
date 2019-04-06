@@ -10,8 +10,8 @@ import com.rhw.learning.activity.BaseActivity;
 import com.rhw.learning.video.BrowserActivity;
 
 /**
- * Author:renhongwei
  * Date:2017/12/6 on 11:40
+ * @author Simon
  */
 public class PushMessageActivity extends BaseActivity {
     /**

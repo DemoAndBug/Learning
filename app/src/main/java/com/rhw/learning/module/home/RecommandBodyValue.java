@@ -5,8 +5,8 @@ import com.rhw.learning.module.BaseModel;
 import java.util.ArrayList;
 
 /**
- * Author:renhongwei
  * Date:2017/11/26 on 22:39
+ * @author Simon
  */
 public class RecommandBodyValue extends BaseModel {
     public int type;

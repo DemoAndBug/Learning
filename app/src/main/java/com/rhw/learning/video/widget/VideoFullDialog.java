@@ -20,6 +20,7 @@ import com.rhw.learning.video.monitor.VideoValue;
 
 /**
  * function: 全屏显示视频
+ * @author Simon
  */
 public class VideoFullDialog extends Dialog implements CustomVideoView.VideoPlayerListener {
 

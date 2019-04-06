@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import com.rhw.learning.application.LearningApplication;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:48
+ * @author Simon
  */
 public class SharedPreferenceManager {
     private static SharedPreferences sp = null;

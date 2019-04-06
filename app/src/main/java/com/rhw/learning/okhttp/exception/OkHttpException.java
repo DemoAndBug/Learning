@@ -1,8 +1,8 @@
 package com.rhw.learning.okhttp.exception;
 
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 13:38
+ * @author Simon
  */
 public class OkHttpException extends Exception {
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,8 @@
 package com.rhw.learning.service.update;
 
 /**
- * Author:renhongwei
  * Date:2017/12/9 on 14:28
+ * @author Simon
  */
 public interface UpdateDownloadListener {
     /**

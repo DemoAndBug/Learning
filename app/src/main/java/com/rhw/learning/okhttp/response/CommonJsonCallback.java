@@ -29,19 +29,20 @@ public class CommonJsonCallback implements Callback {
     private static final String TAG = "CommonJsonCallback";
     /**
      * the logic layer exception, may alter in different app
+     *  有返回则对于http请求来说是成功的，但还有可能是业务逻辑上的错误
      */
-    protected final String RESULT_CODE = "ecode"; // 有返回则对于http请求来说是成功的，但还有可能是业务逻辑上的错误
+    protected final String RESULT_CODE = "ecode";
     protected final int RESULT_CODE_VALUE = 0;
     protected final String ERROR_MSG = "emsg";
     protected final String EMPTY_MSG = "";
-    protected final String COOKIE_STORE = "Set-Cookie"; // decide the server it
+    protected final String COOKIE_STORE = "Set-Cookie";
 
     /**
      * the java layer exception, do not same to the logic error
      */
-    protected final int NETWORK_ERROR = -1; // the network relative error
-    protected final int JSON_ERROR = -2; // the JSON relative error
-    protected final int OTHER_ERROR = -3; // the unknow error
+    protected final int NETWORK_ERROR = -1;
+    protected final int JSON_ERROR = -2;
+    protected final int OTHER_ERROR = -3;
 
     /**
      * 将其它线程的数据转发到UI线程

@@ -32,9 +32,9 @@ import com.rhw.learning.utils.LogUtils;
 import com.rhw.learning.utils.Utils;
 
 /**
- * Author:renhongwei
  * Date:2017/11/28 on 21:54
  * funtion：视频播放view 控制视频的播放 暂停 事件触发
+ * @author Simon
  */
 public class CustomVideoView extends RelativeLayout implements View.OnClickListener,MediaPlayer.OnPreparedListener,
         MediaPlayer.OnInfoListener,MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener ,MediaPlayer.OnBufferingUpdateListener ,TextureView.SurfaceTextureListener{

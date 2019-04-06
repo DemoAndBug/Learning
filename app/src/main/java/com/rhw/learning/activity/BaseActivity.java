@@ -9,9 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.rhw.learning.constant.Constant;
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 14:43
+ * @author Simon
  */
+
 public class BaseActivity extends AppCompatActivity {
     public String mClassName;
 
@@ -69,12 +70,13 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-
             case Constant.WRITE_READ_EXTERNAL_CODE:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doSDCardPermission();
                 }
+                break;
+            default:
                 break;
         }
     }

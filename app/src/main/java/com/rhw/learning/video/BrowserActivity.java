@@ -23,15 +23,14 @@ import com.rhw.learning.video.browser.BrowserWebView;
 import com.rhw.learning.video.browser.BrowserWebViewClient;
 
 /**
- * Author:renhongwei
  * Date:2017/11/30 on 14:21
  * function:WebView页面
+ * @author Simon
  */
 public class BrowserActivity extends AppCompatActivity {
     private static final String LOG_TAG = BrowserActivity.class.getSimpleName();
 
     public static final String KEY_URL = "url";
-
     private BrowserWebView mAdBrowserWebview;
     private BrowserLayout mLayout;
 

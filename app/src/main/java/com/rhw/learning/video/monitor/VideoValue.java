@@ -4,10 +4,6 @@ import com.rhw.learning.video.monitor.emevent.EMEvent;
 
 import java.util.ArrayList;
 
-/**
- * Author:renhongwei
- * Date:2017/11/30 on 14:13
- */
 public class VideoValue {
 
 

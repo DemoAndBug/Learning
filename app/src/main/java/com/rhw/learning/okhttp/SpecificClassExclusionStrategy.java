@@ -5,8 +5,8 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 
 /**
- * Author:renhongwei
  * Date:2017/11/27 on 16:23
+ * @author Simon
  */
 public class SpecificClassExclusionStrategy implements ExclusionStrategy {
     private final Class<?> excludedThisClass;
@@ -27,8 +27,12 @@ public class SpecificClassExclusionStrategy implements ExclusionStrategy {
 
     @Override
     public boolean shouldSkipClass(Class<?> clazz) {
-        if (clazz == null) return false;
-        if (clazz.equals(excludedThisClass)) return true;
+        if (clazz == null) {
+            return false;
+        }
+        if (clazz.equals(excludedThisClass)) {
+            return true;
+        }
         return shouldSkipClass(clazz.getSuperclass());
     }
 

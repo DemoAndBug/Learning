@@ -21,9 +21,9 @@ import java.util.List;
 import cn.jpush.android.api.JPushInterface;
 
 /**
- * Author:renhongwei
  * Date:2017/12/6 on 11:42
  * Function:接收极光服务广播出来的推送消息，实现跳转逻辑
+ * @author Simon
  */
 public class JPushReceiver extends BroadcastReceiver {
     private static final String TAG = JPushReceiver.class.getSimpleName();
@@ -69,7 +69,7 @@ public class JPushReceiver extends BroadcastReceiver {
                  * 需要登陆且当前没有登陆才去登陆页面
                  */
                 if (pushMessage.messageType != null && pushMessage.messageType.equals("2")
-                        && !UserManager.getInstance().hasLogined()) {
+                        && !UserManager.getInstance().hasLogin()) {
                     pushIntent.setClass(context, LoginActivity.class);
                     pushIntent.putExtra("fromPush", true);
                 } else {

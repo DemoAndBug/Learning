@@ -21,12 +21,14 @@ import com.rhw.learning.view.associatemail.MailBoxAssociateTokenizer;
 import com.rhw.learning.view.associatemail.MailBoxAssociateView;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:07
+ * @author Simon
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
-    //自定义登陆广播Action
+    /**
+     * 自定义登陆广播Action
+     */
     public static final String LOGIN_ACTION = "com.rhw.LOGIN_ACTION";
     /**
      * UI
@@ -36,9 +38,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private TextView mLoginView;
 
     /**
-     * data
+     * data 是否从推送到此页面
      */
-    private boolean fromPush; // 是否从推送到此页面
+    private boolean fromPush;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,41 +72,39 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.login_button:
                 login();
                 break;
+            default:
+                break;
         }
     }
 
-    //发送登陆请求
+    /**
+     * 发送登陆请求
+     */
     private void login() {
-
         String userName = mUserNameAssociateView.getText().toString().trim();
         String password = mPasswordView.getText().toString().trim();
-
         if (TextUtils.isEmpty(userName)) {
-            Toast.makeText(this,"用户名不能为空",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-
         DialogManager.getInstnce().showProgressDialog(this);
         RequestCenter.login(userName, password, new DisposeDataListener() {
             @Override
             public void onSuccess(Object responseObj) {
                 DialogManager.getInstnce().dismissProgressDialog();
                 User user = (User) responseObj;
-                UserManager.getInstance().setUser(user);//保存当前用户单例对象
+                UserManager.getInstance().setUser(user);
                 connectToSever();
                 sendLoginBroadcast();
-
-                finish();//销毁当前登陆页面
+                finish();
             }
 
             @Override
@@ -114,15 +114,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    //启动长连接
+    /**
+     * 启动长连接
+     */
     private void connectToSever() {
         startService(new Intent(LoginActivity.this, MinaService.class));
     }
 
-    //向整个应用发送登陆广播事件
+    /**
+     * 向整个应用发送登陆广播事件
+     */
     private void sendLoginBroadcast() {
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(LOGIN_ACTION));
     }
-
 
 }

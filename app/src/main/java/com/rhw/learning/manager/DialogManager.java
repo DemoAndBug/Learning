@@ -6,8 +6,8 @@ import android.content.Context;
 import com.rhw.learning.R;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:20
+ * @author Simon
  */
 public class DialogManager {
     private static DialogManager mInstnce = null;

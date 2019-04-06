@@ -6,8 +6,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:24
+ * @author Simon
  */
 public class MinaService extends Service {
     @Nullable

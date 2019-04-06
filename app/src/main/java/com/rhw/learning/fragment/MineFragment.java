@@ -29,12 +29,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 20:37
  * Function：个人信息界面
+ *
+ * @author Simon
  */
 
-public class MineFragment extends BaseFragment  implements  View.OnClickListener{
+public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     /**
      * UI
@@ -52,9 +53,7 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
     private TextView mQrCodeView;
     private TextView mUpdateView;
 
-    //自定义了一个广播接收器
-    private LoginBroadcastReceiver receiver =
-            new LoginBroadcastReceiver();
+    private LoginBroadcastReceiver receiver = new LoginBroadcastReceiver();
 
     public MineFragment() {
     }
@@ -101,7 +100,7 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
     public void onResume() {
         super.onResume();
         //根据用户信息更新我们的fragment
-        if (UserManager.getInstance().hasLogined()) {
+        if (UserManager.getInstance().hasLogin()) {
             if (mLoginedLayout.getVisibility() == View.GONE) {
                 mLoginLayout.setVisibility(View.GONE);
                 mLoginedLayout.setVisibility(View.VISIBLE);
@@ -126,12 +125,12 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
             case R.id.login_layout:
             case R.id.login_view:
                 //未登陆，则跳轉到登陸页面
-                if (!UserManager.getInstance().hasLogined()) {
+                if (!UserManager.getInstance().hasLogin()) {
                     toLogin();
                 }
                 break;
             case R.id.my_qrcode_view:
-                if (!UserManager.getInstance().hasLogined()) {
+                if (!UserManager.getInstance().hasLogin()) {
                     //未登陆，去登陆。
                     toLogin();
                 } else {
@@ -147,6 +146,8 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
                 } else {
                     requestPermission(Constant.WRITE_READ_EXTERNAL_CODE, Constant.WRITE_READ_EXTERNAL_PERMISSION);
                 }
+                break;
+            default:
                 break;
         }
     }
@@ -178,8 +179,9 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
     }
 
 
-
-    //发送版本检查更新请求
+    /**
+     * 发送版本检查更新请求
+     */
     private void checkVersion() {
         RequestCenter.checkVersion(new DisposeDataListener() {
             @Override
@@ -204,17 +206,18 @@ public class MineFragment extends BaseFragment  implements  View.OnClickListener
 
             @Override
             public void onFailure(Object reasonObj) {
-                Toast.makeText(mContext,"下载失败",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     /**
      * 接收mina发送来的消息，并更新UI
      */
     private class LoginBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (UserManager.getInstance().hasLogined()) {
+            if (UserManager.getInstance().hasLogin()) {
                 //更新我们的fragment
                 if (mLoginedLayout.getVisibility() == View.GONE) {
                     mLoginLayout.setVisibility(View.GONE);

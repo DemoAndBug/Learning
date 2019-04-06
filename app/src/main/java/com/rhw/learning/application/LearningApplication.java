@@ -6,9 +6,8 @@ import android.content.Context;
 import cn.jpush.android.api.JPushInterface;
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 14:51
- * 1、整个程序的入口 2、初始化工作内容  3、为整个应用的其他模块提供上下文
+ * @author Simon
  */
 public class LearningApplication extends Application {
 

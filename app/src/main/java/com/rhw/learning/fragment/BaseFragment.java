@@ -12,8 +12,8 @@ import android.support.v4.content.ContextCompat;
 import com.rhw.learning.constant.Constant;
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 20:34
+ * @author Simon
  */
 public class BaseFragment extends Fragment {
 
@@ -47,7 +47,6 @@ public class BaseFragment extends Fragment {
      * 申请指定的权限.
      */
     public void requestPermission(int code, String... permissions) {
-
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(permissions, code);
         }
@@ -57,7 +56,6 @@ public class BaseFragment extends Fragment {
      * 判断是否有指定的权限
      */
     public boolean hasPermission(String... permissions) {
-
         for (String permisson : permissions) {
             if (ContextCompat.checkSelfPermission(getActivity(), permisson)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -81,6 +79,8 @@ public class BaseFragment extends Fragment {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     doWriteSDCard();
                 }
+                break;
+            default:
                 break;
         }
     }

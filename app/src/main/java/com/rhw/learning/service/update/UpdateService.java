@@ -17,8 +17,8 @@ import com.rhw.learning.service.UpdateManager;
 import java.io.File;
 
 /**
- * Author:renhongwei
  * Date:2017/12/9 on 14:24
+ * @author Simon
  */
 public class UpdateService extends Service {
     /**

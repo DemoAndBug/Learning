@@ -25,10 +25,11 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Author:renhongwei
  * Date:2017/11/26 on 16:21
+ *
+ * @author Simon
  */
-public class HomeAdapter extends BaseAdapter  {
+public class HomeAdapter extends BaseAdapter {
 
     private static final String TAG = "HomeAdapter";
     /**
@@ -132,6 +133,8 @@ public class HomeAdapter extends BaseAdapter  {
                         }
                     });
                     break;
+                default:
+                    break;
             }
             mViewHolder.mLogoView = (CircleImageView) convertView.findViewById(R.id.item_logo_view);
             mViewHolder.mTitleView = (TextView) convertView.findViewById(R.id.item_title_view);
@@ -167,6 +170,8 @@ public class HomeAdapter extends BaseAdapter  {
                 break;
             case VIDOE_TYPE:
 
+                break;
+            default:
                 break;
         }
         return convertView;

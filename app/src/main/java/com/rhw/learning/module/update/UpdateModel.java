@@ -3,8 +3,8 @@ package com.rhw.learning.module.update;
 import com.rhw.learning.module.BaseModel;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:23
+ * @author Simon
  */
 public class UpdateModel extends BaseModel {
 

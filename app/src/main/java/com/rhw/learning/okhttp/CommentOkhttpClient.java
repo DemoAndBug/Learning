@@ -6,6 +6,7 @@ import com.rhw.learning.okhttp.response.CommonFileCallback;
 import com.rhw.learning.okhttp.response.CommonJsonCallback;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -18,12 +19,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 11:47
  * function: 请求参数设置，请求发送，https支持
+ * @author Simon
  */
-public class CommentOKHttpClient {
-    private static final  int TIME_OUT = 30;//超时参数
+public class CommentOkhttpClient {
+    /**
+     * 超时参数
+     */
+    private static final  int TIME_OUT = 30;
     private static OkHttpClient mOkHttpClient;
 
     //为我们的client配置参数
@@ -46,13 +50,14 @@ public class CommentOKHttpClient {
 
         /**
          *  为所有请求添加请求头，看个人需求
+         *  User-Agent 标明发送本次请求的客户端
          */
         okHttpBuilder.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request()
                         .newBuilder()
-                        .addHeader("User-Agent", "Imooc-Mobile") // 标明发送本次请求的客户端
+                        .addHeader("User-Agent", "Imooc-Mobile")
                         .build();
                 return chain.proceed(request);
             }
@@ -64,14 +69,13 @@ public class CommentOKHttpClient {
         mOkHttpClient = okHttpBuilder.build();
     }
 
-//    /**
-//     * 指定cilent信任指定证书
-//     *
-//     * @param certificates
-//     */
-//    public static void setCertificates(InputStream... certificates) {
-//        mOkHttpClient.newBuilder().sslSocketFactory(HttpsUtils.getSslSocketFactory(certificates, null, null)).build();
-//    }
+    /**
+     * 指定cilent信任指定证书
+     * @param certificates
+     */
+    public static void setCertificates(InputStream... certificates) {
+        mOkHttpClient.newBuilder().sslSocketFactory(HttpsUtils.getSslSocketFactory(certificates, null, null)).build();
+    }
 
     /**
      * 通过构造好的Request,Callback去发送请求

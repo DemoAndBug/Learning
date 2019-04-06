@@ -11,9 +11,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * Author:renhongwei
  * Date:2017/12/9 on 14:25
  * Function:下载调度管理器
+ * @author Simon
  */
 public class UpdateManager {
     private static UpdateManager manager;

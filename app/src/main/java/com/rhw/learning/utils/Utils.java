@@ -20,8 +20,8 @@ import com.rhw.learning.constant.Constant;
 import java.io.ByteArrayInputStream;
 
 /**
- * Author:renhongwei
  * Date:2017/11/28 on 21:41
+ * @author Simon
  */
 public class Utils {
     public static int dip2px(Context context, float dpValue) {

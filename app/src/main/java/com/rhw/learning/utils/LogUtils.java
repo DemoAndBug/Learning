@@ -5,8 +5,8 @@ import android.util.Log;
 import com.rhw.learning.BuildConfig;
 
 /**
- * Author:renhongwei
  * Date:2017/11/28 on 13:32
+ * @author Simon
  */
 
 public class LogUtils {

@@ -17,9 +17,9 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.rhw.learning.R;
 
 /**
- * Author:renhongwei
  * Date:2017/11/25 on 16:23
  * Function:初始化univerImageloader，并用来加载图片
+ * @author Simon
  */
 public class ImageLoaderManager {
 
@@ -69,7 +69,6 @@ public class ImageLoaderManager {
      * @return
      */
     private DisplayImageOptions getDefaultOptions() {
-
         DisplayImageOptions options = new
                 DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.mipmap.default_user_avatar)

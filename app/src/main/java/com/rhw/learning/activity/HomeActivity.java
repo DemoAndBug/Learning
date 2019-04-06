@@ -13,15 +13,16 @@ import com.rhw.learning.fragment.HomeFragment;
 import com.rhw.learning.fragment.MessageFragment;
 import com.rhw.learning.fragment.MineFragment;
 
+/**
+ * @author Simon
+ */
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
-
 
     private FragmentManager fm;
     private HomeFragment mHomeFragment;
     private MessageFragment mMessageFragment;
     private MineFragment mMineFragment;
     private Fragment mCurrent;
-
 
     private RelativeLayout mHomeLayout;
     private RelativeLayout mMessageLayout;
@@ -38,8 +39,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         HomeFragment homeFragment = new HomeFragment();
         fm = getSupportFragmentManager();
-        FragmentTransaction  fragmentTransaction =   fm.beginTransaction();
-        fragmentTransaction.replace(R.id.content_layout,homeFragment);
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.content_layout, homeFragment);
         mCurrent = homeFragment;
         fragmentTransaction.commit();
     }
@@ -117,6 +118,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     mCurrent = mMineFragment;
                     fragmentTransaction.show(mMineFragment);
                 }
+                break;
+            default:
                 break;
         }
         fragmentTransaction.commit();

@@ -3,8 +3,8 @@ package com.rhw.learning.module;
 import java.io.Serializable;
 
 /**
- * Author:renhongwei
  * Date:2017/11/26
+ * @author Simon
  */
 public class BaseModel implements Serializable {
 

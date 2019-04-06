@@ -10,15 +10,18 @@ import com.rhw.learning.okhttp.request.CommonRequest;
 import com.rhw.learning.okhttp.request.RequestParams;
 
 /**
- * Author:renhongwei
  * Date:2017/11/26 on 16:26
+ *
+ * @author Simon
  */
 public class RequestCenter {
 
 
-    //根据参数发送所有post请求
+    /**
+     * 根据参数发送所有post请求
+     */
     public static void postRequest(String url, RequestParams params, DisposeDataListener listener, Class<?> clazz) {
-        CommentOKHttpClient.get(CommonRequest.
+        CommentOkhttpClient.get(CommonRequest.
                 createGetRequest(url, params), new DisposeDataHandle(listener, clazz));
     }
 
@@ -28,11 +31,11 @@ public class RequestCenter {
 
     /**
      * 用户登陆请求
+     *
      * @param userName
      * @param passwd
      */
     public static void login(String userName, String passwd, DisposeDataListener listener) {
-
         RequestParams params = new RequestParams();
         params.put("mb", userName);
         params.put("pwd", passwd);
@@ -43,7 +46,6 @@ public class RequestCenter {
      * 应用版本号请求
      */
     public static void checkVersion(DisposeDataListener listener) {
-
         RequestCenter.postRequest(HttpConstants.CHECK_UPDATE, null, listener, UpdateModel.class);
     }
 }

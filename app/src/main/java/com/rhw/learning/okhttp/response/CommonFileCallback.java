@@ -3,6 +3,7 @@ package com.rhw.learning.okhttp.response;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 
 import com.rhw.learning.okhttp.exception.OkHttpException;
 import com.rhw.learning.okhttp.listener.DisposeDataHandle;
@@ -21,18 +22,18 @@ import okhttp3.Response;
  * Author:renhongwei
  * Date:2017/11/26 on 16:48
  */
-public class CommonFileCallback  implements Callback {
+public class CommonFileCallback implements Callback {
 
-    /**
-     * the java layer exception, do not same to the logic error
-     */
-    protected final int NETWORK_ERROR = -1; // the network relative error
-    protected final int IO_ERROR = -2; // the JSON relative error
-    protected final String EMPTY_MSG = "";
     /**
      * 将其它线程的数据转发到UI线程
      */
     private static final int PROGRESS_MESSAGE = 0x01;
+    /**
+     * the java layer exception, do not same to the logic error
+     */
+    protected final int NETWORK_ERROR = -1;
+    protected final int IO_ERROR = -2;
+    protected final String EMPTY_MSG = "";
     private Handler mDeliveryHandler;
     private DisposeDownloadListener mListener;
     private String mFilePath;
@@ -48,13 +49,15 @@ public class CommonFileCallback  implements Callback {
                     case PROGRESS_MESSAGE:
                         mListener.onProgress((int) msg.obj);
                         break;
+                    default:
+                        break;
                 }
             }
         };
     }
 
     @Override
-    public void onFailure(final Call call, final IOException ioexception) {
+    public void onFailure(@NonNull final Call call, @NonNull final IOException ioexception) {
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -64,7 +67,7 @@ public class CommonFileCallback  implements Callback {
     }
 
     @Override
-    public void onResponse(Call call, Response response) throws IOException {
+    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
         final File file = handleResponse(response);
         mDeliveryHandler.post(new Runnable() {
             @Override
@@ -88,7 +91,6 @@ public class CommonFileCallback  implements Callback {
         if (response == null) {
             return null;
         }
-
         InputStream inputStream = null;
         File file = null;
         FileOutputStream fos = null;
@@ -100,16 +102,18 @@ public class CommonFileCallback  implements Callback {
             checkLocalFilePath(mFilePath);
             file = new File(mFilePath);
             fos = new FileOutputStream(file);
-            inputStream = response.body().byteStream();
-            sumLength = (double) response.body().contentLength();
+            if (response.body() != null) {
+                inputStream = response.body().byteStream();
+                sumLength = (double) response.body().contentLength();
 
-            while ((length = inputStream.read(buffer)) != -1) {
-                fos.write(buffer, 0, length);
-                currentLength += length;
-                mProgress = (int) (currentLength / sumLength * 100);
-                mDeliveryHandler.obtainMessage(PROGRESS_MESSAGE, mProgress).sendToTarget();
+                while ((length = inputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, length);
+                    currentLength += length;
+                    mProgress = (int) (currentLength / sumLength * 100);
+                    mDeliveryHandler.obtainMessage(PROGRESS_MESSAGE, mProgress).sendToTarget();
+                }
+                fos.flush();
             }
-            fos.flush();
         } catch (Exception e) {
             file = null;
         } finally {
@@ -133,11 +137,11 @@ public class CommonFileCallback  implements Callback {
                 localFilePath.lastIndexOf("/") + 1));
         File file = new File(localFilePath);
         if (!path.exists()) {
-            path.mkdirs();
+            boolean mkdirs = path.mkdirs();
         }
         if (!file.exists()) {
             try {
-                file.createNewFile();
+                boolean newFile = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }

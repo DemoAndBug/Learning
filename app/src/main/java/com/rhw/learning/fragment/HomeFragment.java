@@ -26,8 +26,9 @@ import com.rhw.learning.zxing.app.CaptureActivity;
 
 
 /**
- * Author:renhongwei
  * Date:2017/11/23 on 20:37
+ *
+ * @author Simon
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
@@ -55,7 +56,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG,"into create");
+        Log.i(TAG, "into create");
         requestRecommandData();
     }
 
@@ -67,7 +68,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         return mContentView;
     }
 
-    public void  initView(){
+    public void initView() {
         mQRCodeView = (TextView) mContentView.findViewById(R.id.qrcode_view);
         mQRCodeView.setOnClickListener(this);
         mCategoryView = (TextView) mContentView.findViewById(R.id.category_view);
@@ -81,7 +82,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void requestRecommandData() {
-        Log.i(TAG,"into requestRecommandData");
+        Log.i(TAG, "into requestRecommandData");
         RequestCenter.requestRecommandData(new DisposeDataListener() {
             @Override
             public void onSuccess(Object responseObj) {
@@ -119,21 +120,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    private void showErrorView(){
+    private void showErrorView() {
 
     }
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.qrcode_view:
-                LogUtils.i(TAG,"click qrcode");
                 if (hasPermission(Constant.HARDWEAR_CAMERA_PERMISSION)) {
                     doOpenCamera();
                 } else {
                     requestPermission(Constant.HARDWEAR_CAMERA_CODE, Constant.HARDWEAR_CAMERA_PERMISSION);
                 }
+                break;
+            default:
                 break;
         }
 
@@ -151,7 +152,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case REQUEST_QRCODE:
                 if (resultCode == Activity.RESULT_OK) {
                     String code = data.getStringExtra("SCAN_RESULT");
-                    LogUtils.i(TAG,code);
+                    LogUtils.i(TAG, code);
                     if (code.contains("http") || code.contains("https")) {
                         Intent intent = new Intent();
                         intent.setAction("android.intent.action.VIEW");
@@ -162,6 +163,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         Toast.makeText(mContext, code, Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
+            default:
                 break;
         }
     }

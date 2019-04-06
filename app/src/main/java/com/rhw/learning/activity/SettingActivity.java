@@ -12,11 +12,12 @@ import com.rhw.learning.manager.SharedPreferenceManager;
 import com.rhw.learning.video.VideoSettings;
 
 /**
- * Author:renhongwei
  * Date:2017/12/4 on 13:45
  * Function:视屏自动播放设置
+ *
+ * @author Simon
  */
-public class SettingActivity extends BaseActivity  implements  View.OnClickListener{
+public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
     /**
      * UI
@@ -66,6 +67,8 @@ public class SettingActivity extends BaseActivity  implements  View.OnClickListe
                 mWifiBox.setBackgroundResource(0);
                 mNeverBox.setBackgroundResource(R.mipmap.setting_selected);
                 break;
+            default:
+                break;
         }
     }
 
@@ -96,6 +99,8 @@ public class SettingActivity extends BaseActivity  implements  View.OnClickListe
                 break;
             case R.id.back_view:
                 finish();
+                break;
+            default:
                 break;
 
         }

@@ -20,8 +20,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 /**
- * Author:renhongwei
  * Date:2017/11/24 on 13:03
+ * @author Simon
  */
 public class HttpsUtils {
 

@@ -13,8 +13,8 @@ import com.rhw.learning.video.widget.CustomVideoView;
 import com.rhw.learning.video.widget.VideoFullDialog;
 
 /**
- * Author:renhongwei
  * Date:2017/11/30 on 14:10
+ * @author Simon
  */
 public class VideoContral implements CustomVideoView.VideoPlayerListener {
 

@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.rhw.learning.utils.Utils;
 
-
 /**
  * 广告页面布局
  */

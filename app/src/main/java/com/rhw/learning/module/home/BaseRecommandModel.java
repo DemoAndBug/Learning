@@ -3,8 +3,8 @@ package com.rhw.learning.module.home;
 
 import com.rhw.learning.module.BaseModel;
 /**
- * Author:renhongwei
  * Date:2017/11/26
+ * @author Simon
  */
 public class BaseRecommandModel extends BaseModel {
 
